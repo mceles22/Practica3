@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html th:attr="lang=${lang}" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{template.html :: head}"></head>
+<body>
+<div th:insert="~{template.html :: nav}"></div>
+<section class="container py-5">
+    <div class="row text-center pt-3">
+        <div class="col-lg-6 m-auto">
+            <button type="button" class="btn btn-primary open-modal"
+                    data-toggle="modal" data-target="#productModal">
+                Create new arbol
+            </button>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Edad</th>
+                                <th scope="col">Altura</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Lugar de Origen</th>
+                                <th scope="col">Imagen</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="arbol : ${arboles}">
+                    <td><span th:text="${arbol.id}"></span></td>
+                    <td><span th:text="${arbol.nombre_comun}"> </span></td>
+                    <td><span th:text="${arbol.tipo_arbol}"> </span></td>
+                    <td><img alt="..." class="card-img-top" th:src="${arbol.ruta_imagen}">
+                    </td>
+                    <td>
+                        <button type="button" th:attr="idArbol=${arbol.id}" class="btn btn-primary open-modal"
+                                data-toggle="modal" data-target="#productModal">
+                            edit
+                        </button>
+                        <button type="button" th:attr="idArbol=${arbol.id}" class="btn btn-danger open-modal btnDeleteArbol">
+                            delete
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+<!-- this is the modal-->
+    <div class="modal fade" id="arbolModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Arbol</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <form id="formArbol" action="#" method="post" th:action="@{/arbol/save}" th:object="${arbol}">
+                        <div class="form-group d-none" >
+                            <label for="id">Id</label>
+                            <input th:field="*{id}" type="number" class="form-control" id="id"
+                                   placeholder="id">
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre_comun">Nombre</label>
+                            <input th:field="*{nombre_comun}" type="number" class="form-control" id="nombre_comun"
+                                   placeholder="Nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="edad_arbol">Edad</label>
+                            <input th:field="*{edad_arbol}" type="text" class="form-control" id="edad_arbol"
+                                   placeholder="Edad">
+                        </div>
+                        <div class="form-group">
+                            <label for="altura_arbol">Altura</label>
+                            <input th:field="*{altura_arbol}" type="text" class="form-control" id="altura_arbol"
+                                   placeholder="Altura">
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo_arbol">Tipo</label>
+                            <input th:field="*{tipo_arbol}" type="number" class="form-control" id="tipo_arbol"
+                                   placeholder="Tipo">
+                        </div>
+                        <div class="form-group">
+                            <label for="lugar_origen">Origen</label>
+                            <input th:field="*{lugar_origen}" type="number" class="form-control" id="lugar_origen"
+                                   placeholder="Origen">
+                        </div>
+                        <div class="form-group">
+                            <label for="ruta_imagen">URL Imagen</label>
+                            <input th:field="*{ruta_imagen}" type="text" class="form-control" id="ruta_imagen"
+                                   placeholder="URL Imagen">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveArbol">Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<div th:insert="~{template.html :: footer}"></div>
+<div th:insert="~{template.html :: scripts}"></div>
+
+<!-- This section is really important cause we are asssigning the list of products loaded in the model, into the js -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    arboles = /*[[${products}]]*/ 'default';
+    /*]]>*/
+</script>
+
+<script src="../js/views/product.js"></script>
+</body>
+</html>

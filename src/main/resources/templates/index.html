@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html th:attr="lang=${lang}" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head th:insert="~{template.html :: head}"></head>
+    <body>
+        <div th:insert="~{template.html :: nav}"></div>
+        <div th:insert="~{template.html :: featured-product}"></div>
+        <section class="container py-5">
+            <div class="row text-center pt-3">
+                <div class="col-lg-6 m-auto">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Edad</th>
+                                <th scope="col">Altura</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Lugar de Origen</th>
+                                <th scope="col">Imagen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="arbol : ${arboles}">
+                                <td><span th:text="${arbol.id}"></span></td>
+                                <td><span th:text="${arbol.nombre_comun}"> </span></td>
+                                <td><span th:text="${arbol.edad_arbol}"> </span></td>
+                                <td><span th:text="${arbol.altura_arbol}"> </span></td>
+                                <td><span th:text="${arbol.tipo_arbol}"> </span></td>
+                                <td><span th:text="${arbol.lugar_origen}"> </span></td>
+                                <td><img alt="..." class="card-img-top" th:src="${arbol.ruta_imagen}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <div th:insert="~{template.html :: footer}"></div>
+        <div th:insert="~{template.html :: scripts}"></div>
+    </body>
+</html>
